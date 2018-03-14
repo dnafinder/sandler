@@ -45,15 +45,14 @@ function STATS=sandler(x1,x2,varargin)
 
 %Input error handling
 p = inputParser;
-validationX = @(x) all(isnumeric(x)) && all(isreal(x)) && all(isfinite(x)) && isrow(x);
-addRequired(p,'x1',validationX);
-addRequired(p,'x2',validationX);
-addOptional(p,'alpha',0.05, @(x) isnumeric(x) && isreal(x) && isfinite(x) && isscalar(x) && (x>0 || x<1));
+addRequired(p,'x1',@(x) validateattributes(x,{'numeric'},{'row','real','finite','nonnan','nonempty'}));
+addRequired(p,'x2',@(x) validateattributes(x,{'numeric'},{'row','real','finite','nonnan','nonempty'}));
+addOptional(p,'alpha',0.05, @(x) validateattributes(x,{'numeric'},{'scalar','real','finite','nonnan','>',0,'<',1}));
 addOptional(p,'tail',1, @(x) isnumeric(x) && isreal(x) && isfinite(x) && isscalar(x) && (x==1 || x==2));
 parse(p,x1,x2,varargin{:});
 assert(length(p.Results.x1)==length(p.Results.x2))
 x1=p.Results.x1; x2=p.Results.x2; alpha=p.Results.alpha; tail=p.Results.tail;
-clear p default* validation*
+clear p
 
 n=length(x1); %numbers of elements
 d=x1-x2; %difference
