@@ -1,43 +1,75 @@
-# sandler
-Sandler's test for paired samples.<br/>
-This file use the Sandler's test to evaluate if exist a difference after a
-treatment. The Sandler's A-value can be transformed in the Student's t-value.
+SANDLER — Sandler's Test for Paired Samples ⚖️📊
 
-Syntax: 	SANDLER(X1,X2,ALPHA,TAIL)
-     
-    Inputs:
-          X1 and X2 - data vectors (mandatory). 
-          ALPHA - significance level (default = 0.05).
-          TAIL - 1-tailed test (1) or 2-tailed test (2). (default = 1).
-    Outputs:
-          - A value.
-          - t value.
-          - degrees of freedom.
-          - p-value.
-          - Power
+Overview
+SANDLER is a MATLAB function that performs Sandler's test for paired data.  
+It helps determine whether there is a systematic difference between two related
+measurements, such as before vs after treatment. The function computes:
 
-     Example: 
+• Sandler's A value  
+• The equivalent Student t statistic  
+• Degrees of freedom  
+• p-value  
+• Approximate statistical power  
 
-          X1=[77 79 79 80 80 81 81 81 81 82 82 82 82 83 83 84 84 84 84 85 ...
-          85 86 86 87 87];
+A clean summary table is displayed automatically, or a structured output can be
+returned for further analysis.
 
-          X2=[82 82 83 84 84 85 85 86 86 86 86 86 86 86 86 86 87 87 87 88 ...
-          88 88 89 90 90];
+Repository 🔗
+https://github.com/dnafinder/sandler
 
-          Calling on Matlab the function: sandler(X1,X2)
+Features ✨
+• Works with any numeric paired vectors  
+• Supports one-tailed and two-tailed tests  
+• Configurable significance level alpha  
+• Produces a structured output for automated workflows  
+• Includes approximate statistical power estimation  
+• No external dependencies beyond MATLAB + Statistics Toolbox  
 
-          Answer is:
+Installation ⚙️
+1. Download sandler.m from:
+   https://github.com/dnafinder/sandler
+2. Place it in any folder.
+3. Add the folder to the MATLAB path:
+     addpath('your_folder_here')
+4. Verify installation:
+     which sandler
 
-       A          t       DF    tail    alpha    p_value    Power
-    ________    ______    __    ____    _____    _______    _____
+Usage Example 📘
+   x1 = [...];   % pre-treatment values
+   x2 = [...];   % post-treatment values
+   STATS = sandler(x1, x2);
 
-    0.042097    21.396    24    1       0.05     0          1    
-  
-STATS=TESTT(...) returns a structure with all test(s) statistics
+If you do not request an output argument:
+   sandler(x1, x2)
+MATLAB will print a table containing A, t, DF, tail, alpha, p-value and power.
 
-          Created by Giuseppe Cardillo
-          giuseppe.cardillo-edta@poste.it
+Input Arguments 🧩
+x1     Paired numeric vector  
+x2     Paired numeric vector (same length as x1)  
+alpha  Optional significance level (default 0.05)  
+tail   Optional: 1 for one-tailed, 2 for two-tailed (default 1)
 
-To cite this file, this would be an appropriate format:
-Cardillo G. (2006). Sandler Test: a function to calculate the Sandler test for paired samples.
-http://www.mathworks.com/matlabcentral/fileexchange/12700
+Output Structure 📦
+STATS.avalue   Sandler's A  
+STATS.tvalue   t statistic  
+STATS.tdf      degrees of freedom  
+STATS.tail     number of tails used  
+STATS.pvalue   p-value of the test  
+STATS.power    approximate statistical power  
+
+Interpretation 🧠
+• p-value ≤ alpha → evidence of systematic difference between paired samples  
+• Small A values correspond to larger t-values  
+• Power is heuristic and intended only as an approximate sensitivity measure  
+
+Citation 📝
+Cardillo G. (2025). sandler: MATLAB implementation of Sandler's test for paired samples.  
+Available at: https://github.com/dnafinder/sandler
+
+Author 👤
+Giuseppe Cardillo  
+Email: giuseppe.cardillo.75@gmail.com  
+GitHub: https://github.com/dnafinder
+
+License 📄
+See the LICENSE file in the GitHub repository.
